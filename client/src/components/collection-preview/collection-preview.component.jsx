@@ -4,10 +4,10 @@ import { withRouter } from 'react-router-dom';
 import CollectionItem from '../collection-item/collection-item.component';
 import CustomButton from '../custom-button/custom-button.component';
 
-import './collection-preview.styles.scss';
+import { CollectionPreviewContainer } from './collection-preview.styles';
 
 const CollectionPreview = ({ title, items, history }) => (
-  <div className="collection-preview">
+  <CollectionPreviewContainer>
     <h1 className="title">
       {title.toUpperCase()}{' '}
       <CustomButton
@@ -24,7 +24,7 @@ const CollectionPreview = ({ title, items, history }) => (
           <CollectionItem key={item.id} item={item} />
         ))}
     </div>
-  </div>
+  </CollectionPreviewContainer>
 );
 
 export default withRouter(CollectionPreview);

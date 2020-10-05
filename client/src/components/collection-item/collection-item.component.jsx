@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import CustomButton from '../custom-button/custom-button.component';
 import { addItem } from '../../redux/cart/cart.actions';
 
-import './collection-item.styles.scss';
+import { CollectionItemContainer } from './collection-item.styles';
 
 const CollectionItem = ({ item, addItem }) => {
   const { name, price, imageUrl } = item;
 
   return (
-    <div className="collection-item">
+    <CollectionItemContainer>
       <div
         className="image"
         style={{
@@ -28,7 +28,7 @@ const CollectionItem = ({ item, addItem }) => {
       >
         Add to Cart
       </CustomButton>
-    </div>
+    </CollectionItemContainer>
   );
 };
 

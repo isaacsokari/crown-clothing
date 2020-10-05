@@ -1,4 +1,6 @@
-.collection-item {
+import styled from 'styled-components';
+
+export const CollectionItemContainer = styled.div`
   width: 22vw;
   display: flex;
   flex-direction: column;
@@ -49,4 +51,4 @@
       width: 10%;
     }
   }
-}
+`;
