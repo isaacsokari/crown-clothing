@@ -65,4 +65,8 @@ export const CustomButtonContainer = styled.button`
     width: fit-content;
     padding: 0 1rem;
   }
+
+  @media screen and (max-width: 300px) {
+    margin-bottom: 1rem;
+  }
 `;
