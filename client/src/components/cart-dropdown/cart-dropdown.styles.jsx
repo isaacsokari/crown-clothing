@@ -13,8 +13,13 @@ export const CartDropdownContainer = styled.div`
   right: 40px;
   z-index: 5;
 
+  @media screen and (max-width: 800px) {
+    top: 70px;
+    right: 1.125rem;
+  }
+
   button {
-    margin-top: auto;
+    margin: auto auto 0;
   }
 `;
 

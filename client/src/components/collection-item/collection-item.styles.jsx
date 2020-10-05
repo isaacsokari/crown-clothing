@@ -19,6 +19,20 @@ export const CollectionItemContainer = styled.div`
     }
   }
 
+  @media screen and (max-width: 800px) {
+    width: 100%;
+
+    &:hover {
+      .image {
+        opacity: unset;
+      }
+
+      .custom-button {
+        opacity: unset;
+      }
+    }
+  }
+
   .image {
     width: 100%;
     height: 95%;
@@ -33,6 +47,14 @@ export const CollectionItemContainer = styled.div`
     position: absolute;
     top: 255px;
     display: none;
+
+    @media screen and (max-width: 800px) {
+      display: block;
+      opacity: 0.9;
+      min-width: unset;
+      padding: 0 10px;
+      width: unset;
+    }
   }
 
   .collection-footer {
@@ -43,12 +65,13 @@ export const CollectionItemContainer = styled.div`
     font-size: 18px;
 
     .name {
-      width: 90%;
+      width: auto;
       margin-bottom: 15px;
     }
 
     .price {
-      width: 10%;
+      width: max-content;
+      text-align: right;
     }
   }
 `;
