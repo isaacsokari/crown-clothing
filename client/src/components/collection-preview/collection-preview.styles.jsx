@@ -22,12 +22,12 @@ export const CollectionPreviewContainer = styled.div`
   }
 
   .preview {
-    display: flex;
-    justify-content: space-between;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
 
     @media screen and (max-width: 800px) {
-      width: 100%;
-      display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 2rem 1rem;
     }
