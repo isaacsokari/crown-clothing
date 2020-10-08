@@ -1,8 +1,15 @@
 import React from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { withRouter } from 'react-router-dom';
 
-const StripeCheckoutButton = ({ price }) => {
+import { clearCart } from '../../redux/cart/cart.actions';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
+import CustomButton from '../custom-button/custom-button.component';
+
+const StripeCheckoutButton = ({ price, clearCart, currentUser, history }) => {
   const priceForStripe = price * 100;
   const publishableKey =
     'pk_test_51HSmsmFTfspbHEo5XdP0XJa8CYRQECWVexRbYVKBlHqi0TXe0jcIGJt5r5wgEeBWWamVRdGQuB8n60NxJ2KB2Dxl00wqAnEzA9';
@@ -17,6 +24,9 @@ const StripeCheckoutButton = ({ price }) => {
       },
     })
       .then((response) => {
+        if (response.status === 200) {
+          clearCart();
+        }
         alert('Payment Successful');
       })
       .catch((error) => {
@@ -24,10 +34,10 @@ const StripeCheckoutButton = ({ price }) => {
         alert(
           'There was an issue with your payment, please make sure you use the provided test card.'
         );
-      }); 
+      });
   };
 
-  return (
+  return currentUser ? (
     <StripeCheckout
       label="Pay Now"
       name="My Shop"
@@ -40,7 +50,22 @@ const StripeCheckoutButton = ({ price }) => {
       token={onToken}
       stripeKey={publishableKey}
     />
+  ) : (
+    <CustomButton onClick={() => history.push('/signin')}>
+      SIGN IN TO PAY
+    </CustomButton>
   );
 };
 
-export default StripeCheckoutButton;
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  clearCart: () => dispatch(clearCart()),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(StripeCheckoutButton));
