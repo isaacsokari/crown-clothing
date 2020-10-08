@@ -29,6 +29,12 @@ const App = ({ currentUser, checkUserSession, isDarkMode }) => {
     checkUserSession();
   }, [checkUserSession]);
 
+  useEffect(() => {
+    isDarkMode
+      ? document.body.setAttribute('style', 'background-color:#232B32')
+      : document.body.setAttribute('style', 'background-color:white');
+  }, []);
+
   return (
     <div>
       <ThemeProvider theme={isDarkMode === true ? darkTheme : lightTheme}>
