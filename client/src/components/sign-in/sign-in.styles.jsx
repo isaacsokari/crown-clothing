@@ -6,6 +6,7 @@ export const SignInContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-right: 1rem;
+  color: ${(props) => props.theme.colors.textColor};
 
   @media screen and (max-width: 800px) {
     height: 70vh;

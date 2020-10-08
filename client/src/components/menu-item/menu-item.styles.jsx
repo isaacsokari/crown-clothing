@@ -39,6 +39,7 @@ export const BackgroundImageContainer = styled.div`
   background-size: cover;
   background-position: center;
   background-image: ${({ imageUrl }) => `url(${imageUrl})`};
+  opacity: ${(props) => props.theme.imageOpacity};
 `;
 
 export const ContentContainer = styled.div`
@@ -69,4 +70,5 @@ export const ContentTitle = styled.span`
 export const ContentSubtitle = styled.span`
   font-weight: lighter;
   font-size: 16px;
+  color: #4a4a4a;
 `;

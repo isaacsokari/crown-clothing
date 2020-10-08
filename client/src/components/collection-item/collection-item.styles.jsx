@@ -39,6 +39,7 @@ export const CollectionItemContainer = styled.div`
     background-size: cover;
     background-position: center;
     margin-bottom: 5px;
+    opacity: ${(props) => props.theme.imageOpacity};
   }
 
   .custom-button {

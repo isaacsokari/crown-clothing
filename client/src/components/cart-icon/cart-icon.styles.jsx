@@ -8,10 +8,15 @@ export const CartIconContainer = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  color: ${(props) => props.theme.colors.textColor};
 
   .shopping-icon {
     width: 24px;
     height: 24px;
+
+    path {
+      fill: ${(props) => props.theme.colors.textColor} !important;
+    }
   }
 
   .item-count {

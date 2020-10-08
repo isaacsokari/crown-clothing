@@ -6,6 +6,7 @@ export const SignUpContainer = styled.div`
   width: 90%;
   max-width: 380px;
   margin-left: 1rem;
+  color: ${(props) => props.theme.colors.textColor};
 
   @media screen and (max-width: 800px) {
     margin-top: 3rem;

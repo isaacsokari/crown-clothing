@@ -43,6 +43,7 @@ export const OptionsContainer = styled.div`
 export const OptionLink = styled(Link)`
   padding: 10px 15px;
   cursor: pointer;
+  color: ${(props) => props.theme.colors.textColor};
 
   @media screen and (max-width: 800px) {
     width: max-content;

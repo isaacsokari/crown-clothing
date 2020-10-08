@@ -7,6 +7,7 @@ export const CheckoutPageContainer = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 50px auto 0;
+  color: ${(props) => props.theme.colors.textColor};
 
   button {
     margin-left: auto;
@@ -29,6 +30,7 @@ export const CheckoutHeaderContainer = styled.div`
 export const HeaderBlockContainer = styled.div`
   text-transform: capitalize;
   width: 23%;
+  color: ${(props) => props.theme.colors.textColor};
 
   &:last-child {
     width: 8%;
@@ -39,6 +41,7 @@ export const TotalContainer = styled.div`
   margin-top: 30px;
   margin-left: auto;
   font-size: 36px;
+  color: ${(props) => props.theme.colors.textColor};
 `;
 
 export const WarningContainer = styled.div`

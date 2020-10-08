@@ -1,25 +1,25 @@
 import styled, { css } from 'styled-components';
 
 const buttonStyles = css`
-  background-color: black;
-  color: white;
-  border: none;
+  background-color: ${(props) => props.theme.colors.buttonBackground};
+  color: ${(props) => props.theme.colors.buttonColor};
+  border: 1px solid ${(props) => props.theme.colors.buttonColor};
 
   &:hover {
-    background-color: white;
-    color: black;
-    border: 1px solid black;
+    background-color: ${(props) => props.theme.colors.buttonHoverBackground};
+    color: ${(props) => props.theme.colors.buttonHoverColor};
+    border: 1px solid ${(props) => props.theme.colors.buttonHoverColor};
   }
 `;
 
 const invertedButtonStyles = css`
-  background-color: white;
-  color: black;
-  border: 1px solid black;
+  background-color: ${(props) => props.theme.colors.buttonColor};
+  color: ${(props) => props.theme.colors.buttonBackground};
+  border: 1px solid ${(props) => props.theme.colors.buttonBackground};
 
   &:hover {
-    background-color: black;
-    color: white;
+    background-color: ${(props) => props.theme.colors.buttonBackground};
+    color: ${(props) => props.theme.colors.buttonColor};
     border: none;
   }
 `;

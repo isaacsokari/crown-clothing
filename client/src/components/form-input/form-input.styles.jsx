@@ -6,7 +6,7 @@ const mainColor = 'black';
 const shrinkLabelStyles = css`
   top: -14px;
   font-size: 12px;
-  color: ${mainColor};
+  color: ${(props) => props.theme.colors.textColor};
 `;
 
 export const GroupContainer = styled.div`
@@ -19,8 +19,8 @@ export const GroupContainer = styled.div`
 
 export const FormInputContainer = styled.input`
   background: none;
-  background-color: white;
-  color: ${subColor};
+  background-color: transparent;
+  color: ${(props) => props.theme.colors.textColor};
   font-size: 18px;
   padding: 10px 10px 10px 5px;
   display: block;
@@ -29,6 +29,7 @@ export const FormInputContainer = styled.input`
   border-radius: 0;
   border-bottom: 1px solid ${subColor};
   margin: 25px 0;
+
   &:focus {
     outline: none;
   }
@@ -38,7 +39,7 @@ export const FormInputContainer = styled.input`
 `;
 
 export const FormInputLabel = styled.label`
-  color: ${subColor};
+  color: ${(props) => props.theme.colors.textColor};
   font-size: 16px;
   font-weight: normal;
   position: absolute;
