@@ -7,6 +7,7 @@ const lightTheme = {
     buttonHoverBackground: 'white',
     buttonHoverColor: 'black',
   },
+  imageOpacity: '1',
 };
 
 export default lightTheme;

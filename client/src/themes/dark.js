@@ -1,12 +1,13 @@
 const darkTheme = {
   colors: {
     background: '#040404',
-    textColor: 'white',
+    textColor: '#cacaca',
     buttonColor: '#040404',
-    buttonBackground: 'white',
+    buttonBackground: '#cacaca',
     buttonHoverBackground: '#040404',
-    buttonHoverColor: 'white'
-  }
-}
+    buttonHoverColor: '#cacaca',
+  },
+  imageOpacity: '0.85',
+};
 
 export default darkTheme;
