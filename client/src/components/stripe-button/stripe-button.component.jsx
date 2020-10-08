@@ -37,6 +37,8 @@ const StripeCheckoutButton = ({ price, clearCart, currentUser, history }) => {
       });
   };
 
+  sessionStorage.removeItem('fromCheckout');
+
   return currentUser ? (
     <StripeCheckout
       label="Pay Now"
@@ -51,7 +53,12 @@ const StripeCheckoutButton = ({ price, clearCart, currentUser, history }) => {
       stripeKey={publishableKey}
     />
   ) : (
-    <CustomButton onClick={() => history.push('/signin')}>
+    <CustomButton
+      onClick={() => {
+        sessionStorage.setItem('fromCheckout', true);
+        history.push('/signin');
+      }}
+    >
       SIGN IN TO PAY
     </CustomButton>
   );

@@ -43,7 +43,17 @@ const App = ({ currentUser, checkUserSession, isDarkMode }) => {
         <Switch>
           <ErrorBoundary>
             <Suspense fallback={<Spinner />}>
-              <Route exact path="/" component={HomePage} />
+              <Route
+                exact
+                path="/"
+                render={() =>
+                  sessionStorage.getItem('fromCheckout') ? (
+                    <Redirect to="/checkout" />
+                  ) : (
+                    <HomePage />
+                  )
+                }
+              />
               <Route path="/shop" component={ShopPage} />
               <Route exact path="/checkout" component={CheckoutPage} />
               <Route

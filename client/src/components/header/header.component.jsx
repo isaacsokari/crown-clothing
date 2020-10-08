@@ -29,7 +29,10 @@ const Header = ({
 }) => {
   return (
     <HeaderContainer>
-      <LogoContainer to="/">
+      <LogoContainer
+        onClick={() => sessionStorage.removeItem('fromCheckout')}
+        to="/"
+      >
         <Logo />
       </LogoContainer>
       <OptionsContainer>
