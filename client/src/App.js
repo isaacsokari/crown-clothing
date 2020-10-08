@@ -33,7 +33,7 @@ const App = ({ currentUser, checkUserSession, isDarkMode }) => {
     isDarkMode
       ? document.body.setAttribute('style', 'background-color:#232B32')
       : document.body.setAttribute('style', 'background-color:white');
-  }, []);
+  }, [isDarkMode]);
 
   return (
     <div>
