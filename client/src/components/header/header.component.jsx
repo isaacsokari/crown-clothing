@@ -28,7 +28,7 @@ const Header = ({
   isDarkMode,
 }) => {
   return (
-    <HeaderContainer>
+    <HeaderContainer as="header">
       <LogoContainer
         onClick={() => sessionStorage.removeItem('fromCheckout')}
         to="/"
