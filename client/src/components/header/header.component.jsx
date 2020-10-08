@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-// import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import { ReactComponent as Logo } from '../../assets/crown.svg';
+import { ReactComponent as MoonIcon } from '../../assets/moon.svg';
+import { ReactComponent as SunIcon } from '../../assets/sun.svg';
 
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
@@ -32,17 +33,6 @@ const Header = ({
         <Logo />
       </LogoContainer>
       <OptionsContainer>
-        <div
-          style={{ color: `${isDarkMode ? 'white' : 'black'}` }}
-          onClick={() => {
-            document.body.style.backgroundColor === 'black'
-              ? document.body.setAttribute('style', 'background-color:white')
-              : document.body.setAttribute('style', 'background-color:black');
-            toggleDarkMode();
-          }}
-        >
-          Toggle
-        </div>
         <OptionLink to="/shop">SHOP</OptionLink>
         {/* <OptionLink to="/contact">CONTACT</OptionLink> */}
         {currentUser ? (
@@ -53,6 +43,24 @@ const Header = ({
           <OptionLink to="/signin">SIGN IN</OptionLink>
         )}
         <CartIcon />
+        <OptionLink
+          as="div"
+          style={{
+            width: '45px',
+            height: '45px',
+            display: 'flex',
+            alignItems: 'center',
+            color: `${isDarkMode ? 'white' : '#232B32'}`,
+          }}
+          onClick={() => {
+            document.body.style.backgroundColor === 'white'
+              ? document.body.setAttribute('style', 'background-color:#232B32')
+              : document.body.setAttribute('style', 'background-color:white');
+            toggleDarkMode();
+          }}
+        >
+          {isDarkMode ? <SunIcon /> : <MoonIcon />}
+        </OptionLink>
       </OptionsContainer>
       {hidden ? null : <CartDropdown />}
     </HeaderContainer>
