@@ -19,12 +19,18 @@ import selectTheme from './redux/theme/theme.selectors';
 
 const HomePage = lazy(() => import('./pages/homepage/homepage.component'));
 const ShopPage = lazy(() => import('./pages/shop/shop.component'));
-const SignInSignUpPage = lazy(() =>
-  import('./pages/signin-signup/signin-signup.component')
+const SignInSignUpPage = lazy(
+  () => import('./pages/signin-signup/signin-signup.component')
 );
 const CheckoutPage = lazy(() => import('./pages/checkout/checkout.component'));
 
-const App = ({ currentUser, checkUserSession, isDarkMode }) => {
+type AppProps = {
+  currentUser: any;
+  checkUserSession: () => void;
+  isDarkMode: boolean;
+};
+
+const App = ({ currentUser, checkUserSession, isDarkMode }: AppProps) => {
   useEffect(() => {
     checkUserSession();
   }, [checkUserSession]);
