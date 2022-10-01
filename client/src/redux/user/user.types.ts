@@ -1,4 +1,4 @@
-const userActionTypes = {
+const userActionTypes = Object.freeze({
   SET_CURRENT_USER: 'SET_CURRENT_USER',
   GOOGLE_SIGN_IN_START: 'GOOGLE_SIGN_IN_START',
   EMAIL_SIGN_IN_START: 'EMAIL_SIGN_IN_START',
@@ -11,6 +11,9 @@ const userActionTypes = {
   SIGN_UP_START: 'SIGN_UP_START',
   SIGN_UP_SUCCESS: 'SIGN_UP_SUCCESS',
   SIGN_UP_FAILURE: 'SIGN_UP_FAILURE',
-};
+});
+
+type TUserActions = typeof userActionTypes;
+export type TUserActionValues = TUserActions[keyof TUserActions];
 
 export default userActionTypes;

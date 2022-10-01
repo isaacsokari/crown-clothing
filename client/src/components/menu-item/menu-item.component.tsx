@@ -1,5 +1,5 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { FunctionComponent } from 'react';
+import { match, RouteComponentProps, withRouter } from 'react-router-dom';
 
 import {
   MenuItemContainer,
@@ -9,11 +9,26 @@ import {
   ContentSubtitle,
 } from './menu-item.styles';
 
-const MenuItem = ({ title, imageUrl, size, history, linkUrl, match }) => (
+type MenuItemProps = {
+  title: string;
+  imageUrl: string;
+  size: string;
+  linkUrl: string;
+  match: match;
+  history: any;
+};
+
+const MenuItem = ({
+  title,
+  imageUrl,
+  size,
+  history,
+  linkUrl,
+  match,
+}: MenuItemProps) => (
   <MenuItemContainer
     size={size}
-    onClick={() => history.push(`${match.url}${linkUrl}`)}
-  >
+    onClick={() => history.push(`${match.url}${linkUrl}`)}>
     <BackgroundImageContainer
       className="background-image"
       imageUrl={imageUrl}
@@ -25,4 +40,8 @@ const MenuItem = ({ title, imageUrl, size, history, linkUrl, match }) => (
   </MenuItemContainer>
 );
 
-export default withRouter(MenuItem);
+export default withRouter(
+  MenuItem as unknown as FunctionComponent<
+    RouteComponentProps<any, {}, unknown>
+  >
+);

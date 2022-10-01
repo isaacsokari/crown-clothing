@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEventHandler, FormEventHandler } from 'react';
 import { connect } from 'react-redux';
 import { useState } from 'react';
 
@@ -7,8 +7,9 @@ import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 
 import { signUpStart } from '../../redux/user/user.actions';
+import { Dispatch } from 'redux';
 
-const SignUp = ({ signUpStart }) => {
+const SignUp = ({ signUpStart }: ReturnType<typeof mapDispatchToProps>) => {
   const [signUpCredentials, setCredentials] = useState({
     displayName: '',
     email: '',
@@ -18,7 +19,7 @@ const SignUp = ({ signUpStart }) => {
 
   const { displayName, email, password, confirmPassword } = signUpCredentials;
 
-  const handleSubmit = async (event) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
 
     if (password !== confirmPassword) {
@@ -29,7 +30,7 @@ const SignUp = ({ signUpStart }) => {
     signUpStart({ displayName, email, password });
   };
 
-  const handleChange = (event) => {
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     const { name, value } = event.target;
 
     setCredentials({ ...signUpCredentials, [name]: value });
@@ -45,28 +46,28 @@ const SignUp = ({ signUpStart }) => {
           name="displayName"
           label="Display Name"
           value={displayName}
-          onChange={handleChange}
+          handleChange={handleChange}
         />
         <FormInput
           type="email"
           name="email"
           label="Email"
           value={email}
-          onChange={handleChange}
+          handleChange={handleChange}
         />
         <FormInput
           type="password"
           name="password"
           label="Password"
           value={password}
-          onChange={handleChange}
+          handleChange={handleChange}
         />
         <FormInput
           type="password"
           name="confirmPassword"
           label="Confirm Password"
           value={confirmPassword}
-          onChange={handleChange}
+          handleChange={handleChange}
         />
         <CustomButton type="submit">SIGN UP</CustomButton>
       </form>
@@ -74,8 +75,12 @@ const SignUp = ({ signUpStart }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  signUpStart: (userData) => dispatch(signUpStart(userData)),
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  signUpStart: (userData: {
+    email: string;
+    password: string;
+    displayName: string;
+  }) => dispatch(signUpStart(userData)),
 });
 
 export default connect(null, mapDispatchToProps)(SignUp);

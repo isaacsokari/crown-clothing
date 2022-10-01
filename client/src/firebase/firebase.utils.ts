@@ -13,7 +13,10 @@ const config = {
   measurementId: 'G-JR1RETC5PN',
 };
 
-export const createUserProfileDocument = async (userAuth, additionalData) => {
+export const createUserProfileDocument = async (
+  userAuth: { uid: string; displayName: string; email: string },
+  additionalData: Record<string, any>
+) => {
   if (!userAuth) return;
 
   const userRef = firestore.doc(`users/${userAuth.uid}`);
@@ -32,7 +35,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
         ...additionalData,
       });
     } catch (error) {
-      console.log('error creating user', error.message);
+      console.log('error creating user', (error as Error).message);
     }
   }
 
@@ -41,7 +44,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
 firebase.initializeApp(config);
 
-export const getUserCartRef = async (userId) => {
+export const getUserCartRef = async (userId: number) => {
   const cartsRef = firestore.collection('carts').where('userId', '==', userId);
   const snapShot = await cartsRef.get();
 
@@ -54,9 +57,11 @@ export const getUserCartRef = async (userId) => {
   }
 };
 
-export const addCollectionAndDocuments = async (
-  collectionKey,
-  objectsToAdd
+export const addCollectionAndDocuments = async <
+  ObjectsToAddType extends firebase.firestore.DocumentData
+>(
+  collectionKey: string,
+  objectsToAdd: ObjectsToAddType[]
 ) => {
   const collectionRef = firestore.collection(collectionKey);
 
@@ -71,9 +76,14 @@ export const addCollectionAndDocuments = async (
   await batch.commit();
 };
 
-export const convertCollectionsSnapshotToMap = (collections) => {
+export const convertCollectionsSnapshotToMap = (collections: {
+  docs: firebase.firestore.DocumentSnapshot<{
+    title: string;
+    items: any[];
+  }>[];
+}) => {
   const transformedCollection = collections.docs.map((doc) => {
-    const { title, items } = doc.data();
+    const { title, items } = doc.data()!;
 
     return {
       title,
@@ -83,10 +93,19 @@ export const convertCollectionsSnapshotToMap = (collections) => {
     };
   });
 
-  return transformedCollection.reduce((accumulator, current) => {
-    accumulator[current.title.toLowerCase()] = current;
-    return accumulator;
-  }, {});
+  type TransformedCollection = typeof transformedCollection[0];
+
+  return transformedCollection.reduce(
+    (
+      accumulator: Record<string, TransformedCollection>,
+      current: TransformedCollection
+    ) => {
+      accumulator[current.title.toLowerCase()] = current;
+
+      return accumulator;
+    },
+    {}
+  );
 };
 
 export const getCurrentUser = () => {
