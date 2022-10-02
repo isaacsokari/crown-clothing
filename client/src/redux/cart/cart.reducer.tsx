@@ -1,44 +1,60 @@
-import CartActionTypes from './cart.types';
+import { CartItemType } from '../../components/collection-item/collection-item.component';
+import CartActions from './cart.types';
 import { addItemToCart, removeItemFromCart } from './cart.utils';
 
-const INITIAL_STATE = {
+type CartActionModule = typeof import('./cart.actions');
+type CartActionsFromCreators = ReturnType<
+  CartActionModule[keyof CartActionModule]
+>;
+
+type CartState = { hidden: boolean; cartItems: CartItemType[] };
+const INITIAL_STATE: CartState = {
   hidden: true,
   cartItems: [],
 };
 
-const cartReducer = (state = INITIAL_STATE, action) => {
+const cartReducer = (
+  state = INITIAL_STATE,
+  action: CartActionsFromCreators
+) => {
   switch (action.type) {
-    case CartActionTypes.TOGGLE_CART_HIDDEN:
+    case CartActions.TOGGLE_CART_HIDDEN:
       return {
         ...state,
         hidden: !state.hidden,
       };
-    case CartActionTypes.ADD_ITEM:
+    case CartActions.ADD_ITEM:
       return {
         ...state,
-        cartItems: addItemToCart(state.cartItems, action.payload),
+        cartItems: addItemToCart(
+          state.cartItems,
+          action.payload as CartItemType
+        ),
       };
-    case CartActionTypes.REMOVE_ITEM:
+    case CartActions.REMOVE_ITEM:
       return {
         ...state,
-        cartItems: removeItemFromCart(state.cartItems, action.payload),
+        cartItems: removeItemFromCart(
+          state.cartItems,
+          action.payload as CartItemType
+        ),
       };
-    case CartActionTypes.CLEAR_ITEM_FROM_CART:
+    case CartActions.CLEAR_ITEM_FROM_CART:
       return {
         ...state,
         cartItems: state.cartItems.filter(
-          (cartItem) => cartItem.id !== action.payload.id
+          (cartItem) => cartItem.id !== (action.payload as CartItemType).id
         ),
       };
-    case CartActionTypes.CLEAR_CART:
+    case CartActions.CLEAR_CART:
       return {
         ...state,
         cartItems: [],
       };
-    case CartActionTypes.SET_CART_FROM_FIREBASE:
+    case CartActions.SET_CART_FROM_FIREBASE:
       return {
         ...state,
-        cartItems: action.payload,
+        cartItems: action.payload as CartItemType[],
       };
     default:
       return state;

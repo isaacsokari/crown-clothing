@@ -1,20 +1,32 @@
-import React from 'react';
-import StripeCheckout from 'react-stripe-checkout';
+import React, { ComponentType } from 'react';
+import StripeCheckout, { Token } from 'react-stripe-checkout';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 import { clearCart } from '../../redux/cart/cart.actions';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import CustomButton from '../custom-button/custom-button.component';
+import { Dispatch } from 'redux';
 
-const StripeCheckoutButton = ({ price, clearCart, currentUser, history }) => {
+type StripeCheckoutButtonProps = {
+  price: number;
+  history: any;
+} & (ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>);
+
+const StripeCheckoutButton = ({
+  price,
+  clearCart,
+  currentUser,
+  history,
+}: StripeCheckoutButtonProps) => {
   const priceForStripe = price * 100;
   const publishableKey =
     'pk_test_51HSmsmFTfspbHEo5XdP0XJa8CYRQECWVexRbYVKBlHqi0TXe0jcIGJt5r5wgEeBWWamVRdGQuB8n60NxJ2KB2Dxl00wqAnEzA9';
 
-  const onToken = (token) => {
+  const onToken = (token: Token) => {
     axios({
       url: 'payment',
       method: 'post',
@@ -29,7 +41,7 @@ const StripeCheckoutButton = ({ price, clearCart, currentUser, history }) => {
         }
         alert('Payment Successful');
       })
-      .catch((error) => {
+      .catch((error: string) => {
         console.log(`Payment Error: ${JSON.parse(error)}`);
         alert(
           'There was an issue with your payment, please make sure you use the provided test card.'
@@ -55,10 +67,9 @@ const StripeCheckoutButton = ({ price, clearCart, currentUser, history }) => {
   ) : (
     <CustomButton
       onClick={() => {
-        sessionStorage.setItem('fromCheckout', true);
+        sessionStorage.setItem('fromCheckout', JSON.stringify(true));
         history.push('/signin');
-      }}
-    >
+      }}>
       SIGN IN TO PAY
     </CustomButton>
   );
@@ -68,11 +79,17 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: Dispatch) => ({
   clearCart: () => dispatch(clearCart()),
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(StripeCheckoutButton));
+)(
+  withRouter(
+    StripeCheckoutButton as unknown as ComponentType<
+      RouteComponentProps<any, {}, unknown> & StripeCheckoutButtonProps
+    >
+  )
+);

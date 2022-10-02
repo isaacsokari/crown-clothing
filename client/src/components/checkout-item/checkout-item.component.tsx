@@ -1,14 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
 import {
   clearItemFromCart,
   removeItem,
   addItem,
 } from '../../redux/cart/cart.actions';
+import { CartItemType } from '../collection-item/collection-item.component';
 
 import { CheckoutItemContainer } from './checkout.styles';
 
-const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem }) => {
+const CheckoutItem = ({
+  cartItem,
+  clearItem,
+  addItem,
+  removeItem,
+}: ReturnType<typeof mapDispatchToProps> & {
+  cartItem: CartItemType;
+}): React.ReactElement => {
   const { name, imageUrl, quantity, price } = cartItem;
   return (
     <CheckoutItemContainer>
@@ -33,10 +42,10 @@ const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  clearItem: (item) => dispatch(clearItemFromCart(item)),
-  addItem: (item) => dispatch(addItem(item)),
-  removeItem: (item) => dispatch(removeItem(item)),
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  clearItem: (item: CartItemType) => dispatch(clearItemFromCart(item)),
+  addItem: (item: CartItemType) => dispatch(addItem(item)),
+  removeItem: (item: CartItemType) => dispatch(removeItem(item)),
 });
 
 export default connect(null, mapDispatchToProps)(CheckoutItem);

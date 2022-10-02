@@ -13,9 +13,12 @@ const config = {
   measurementId: 'G-JR1RETC5PN',
 };
 
+export type TUserAuth = { uid: string; displayName: string; email: string };
+export type TAdditionalData = Record<string, any>;
+
 export const createUserProfileDocument = async (
-  userAuth: { uid: string; displayName: string; email: string },
-  additionalData: Record<string, any>
+  userAuth: TUserAuth,
+  additionalData: TAdditionalData
 ) => {
   if (!userAuth) return;
 

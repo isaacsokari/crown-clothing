@@ -7,6 +7,8 @@ import { persistStore } from 'redux-persist';
 import rootReducer from './root-reducer';
 import rootSaga from './root-saga';
 
+export type RootState = ReturnType<typeof rootReducer>;
+
 const sagaMiddleware = createSagaMiddleware();
 
 const middlewares = [sagaMiddleware];

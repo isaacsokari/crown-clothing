@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ErrorInfo } from 'react';
 
 import {
   ErrorImageContainer,
@@ -6,15 +6,15 @@ import {
   ErrorImageText,
 } from './error-boundary.styles';
 
-class ErrorBoundary extends React.Component {
+class ErrorBoundary extends React.Component<{ children: JSX.Element }> {
   state = { hasErrored: false };
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError(error: Error) {
     // process the error
     return { hasErrored: true };
   }
 
-  componentDidCatch(error, info) {
+  componentDidCatch(error: Error, info: ErrorInfo) {
     console.log(error);
   }
 

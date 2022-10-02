@@ -1,11 +1,25 @@
+import { AnyAction } from 'redux';
 import userActionTypes, { TUserActionValues } from './user.types';
 
-const INITIAL_STATE = { currentUser: null, error: null };
+export type UserData = {
+  createdAt: Date;
+  displayName: string;
+  email: string;
+};
 
-const userReducer = <T,>(
-  state = INITIAL_STATE,
-  action: { type: TUserActionValues; payload: T }
-) => {
+export type UserState = {
+  readonly currentUser: UserData | null;
+  readonly isLoading: boolean;
+  readonly error: Error | null;
+};
+
+const INITIAL_STATE: UserState = {
+  currentUser: null,
+  isLoading: false,
+  error: null,
+};
+
+const userReducer = (state = INITIAL_STATE, action: AnyAction) => {
   switch (action.type) {
     case userActionTypes.SIGN_IN_SUCCESS:
       return { ...state, currentUser: action.payload, error: null };

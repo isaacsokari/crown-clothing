@@ -2,6 +2,7 @@
   "name": "myshop",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "proxy": "http://localhost:5000",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -45,6 +46,7 @@
     ]
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/jest": "^29.1.1",
     "@types/react-router-dom": "^5.3.3",
     "@types/redux-logger": "^3.0.9",

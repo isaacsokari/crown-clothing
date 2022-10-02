@@ -1,19 +1,30 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { ComponentType } from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
-import CollectionItem from '../collection-item/collection-item.component';
+import CollectionItem, {
+  CartItemType,
+} from '../collection-item/collection-item.component';
 import CustomButton from '../custom-button/custom-button.component';
 
 import { CollectionPreviewContainer } from './collection-preview.styles';
 
-const CollectionPreview = ({ title, items, history }) => (
+type CollectionPreviewProps = {
+  title: string;
+  items: CartItemType[];
+  history: any;
+};
+
+const CollectionPreview = ({
+  title,
+  items,
+  history,
+}: CollectionPreviewProps): React.ReactElement => (
   <CollectionPreviewContainer>
     <h1 className="title">
       {title.toUpperCase()}{' '}
       <CustomButton
         onClick={() => history.push(`/shop/${title.toLowerCase()}`)}
-        inverted
-      >
+        inverted>
         Go to {title}
       </CustomButton>
     </h1>
@@ -27,4 +38,8 @@ const CollectionPreview = ({ title, items, history }) => (
   </CollectionPreviewContainer>
 );
 
-export default withRouter(CollectionPreview);
+export default withRouter(
+  CollectionPreview as unknown as ComponentType<
+    RouteComponentProps<any, {}, unknown>
+  >
+);

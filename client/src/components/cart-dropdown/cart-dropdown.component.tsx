@@ -13,8 +13,16 @@ import {
   EmptyCartMessageContainer,
 } from './cart-dropdown.styles';
 import { toggleCartHidden } from '../../redux/cart/cart.actions';
+import { CartItemType } from '../collection-item/collection-item.component';
+import { Dispatch } from 'redux';
 
-const CartDropdown = ({ cartItems, history, dispatch }) => (
+type CartDropdownProps = {
+  cartItems: CartItemType[];
+  history: any;
+  dispatch: Dispatch;
+};
+
+const CartDropdown = ({ cartItems, history, dispatch }: CartDropdownProps) => (
   <CartDropdownContainer>
     <CartItemsContainer>
       {cartItems.length ? (
@@ -31,8 +39,7 @@ const CartDropdown = ({ cartItems, history, dispatch }) => (
       onClick={() => {
         dispatch(toggleCartHidden());
         history.push('/checkout');
-      }}
-    >
+      }}>
       GO TO CHECKOUT
     </CustomButton>
   </CartDropdownContainer>

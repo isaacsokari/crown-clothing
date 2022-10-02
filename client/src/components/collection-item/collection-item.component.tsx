@@ -5,8 +5,25 @@ import CustomButton from '../custom-button/custom-button.component';
 import { addItem } from '../../redux/cart/cart.actions';
 
 import { CollectionItemContainer } from './collection-item.styles';
+import { Dispatch } from 'redux';
 
-const CollectionItem = ({ item, addItem }) => {
+export type CartItemType = {
+  id: string;
+  name: string;
+  price: number;
+  imageUrl: string;
+  quantity: number;
+};
+
+type TCollectionItemProps = {
+  item: CartItemType;
+};
+
+const CollectionItem = ({
+  item,
+  addItem,
+}: TCollectionItemProps &
+  ReturnType<typeof mapDispatchToProps>): React.ReactElement => {
   const { name, price, imageUrl } = item;
 
   return (
@@ -24,16 +41,15 @@ const CollectionItem = ({ item, addItem }) => {
       <CustomButton
         className="custom-button"
         onClick={() => addItem(item)}
-        inverted
-      >
+        inverted>
         Add to Cart
       </CustomButton>
     </CollectionItemContainer>
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  addItem: (item) => dispatch(addItem(item)),
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  addItem: (item: CartItemType) => dispatch(addItem(item)),
 });
 
 export default connect(null, mapDispatchToProps)(CollectionItem);

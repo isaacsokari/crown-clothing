@@ -1,6 +1,8 @@
 import { createSelector } from 'reselect';
+import { CartItemType } from '../../components/collection-item/collection-item.component';
+import { RootState } from '../store';
 
-const selectCart = (state) => state.cart;
+const selectCart = (state: RootState) => state.cart;
 
 export const selectCartItems = createSelector(
   [selectCart],
@@ -14,14 +16,16 @@ export const selectCartHidden = createSelector(
 
 export const selectCartItemsCount = createSelector(
   [selectCartItems],
-  (cartItems) =>
+  (cartItems: CartItemType[]) =>
     cartItems.reduce((acc, cartItem) => {
       return acc + cartItem.quantity;
     }, 0)
 );
 
-export const selectCartTotal = createSelector([selectCartItems], (cartItems) =>
-  cartItems.reduce((acc, cartItem) => {
-    return acc + cartItem.quantity * cartItem.price;
-  }, 0)
+export const selectCartTotal = createSelector(
+  [selectCartItems],
+  (cartItems: CartItemType[]) =>
+    cartItems.reduce((acc, cartItem) => {
+      return acc + cartItem.quantity * cartItem.price;
+    }, 0)
 );

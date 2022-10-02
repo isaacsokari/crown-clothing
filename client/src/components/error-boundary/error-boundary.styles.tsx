@@ -9,7 +9,7 @@ export const ErrorImageOverlay = styled.div`
   align-items: center;
 `;
 
-export const ErrorImageContainer = styled.div`
+export const ErrorImageContainer = styled.div<{ imageUrl: string }>`
   display: inline-block;
   background-image: ${({ imageUrl }) => `url(${imageUrl})`};
   background-size: cover;
@@ -20,5 +20,5 @@ export const ErrorImageContainer = styled.div`
 
 export const ErrorImageText = styled.h2`
   font-size: 28px;
-  color: #999EBA;
+  color: #999eba;
 `;

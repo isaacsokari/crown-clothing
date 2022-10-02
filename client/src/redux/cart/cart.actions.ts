@@ -1,33 +1,55 @@
-import CartActionTypes from './cart.types';
+import { CartItemType } from '../../components/collection-item/collection-item.component';
+import CartActions, { TCartActionsMap, TCartActionTypes } from './cart.types';
 
-export const toggleCartHidden = () => ({
-  type: CartActionTypes.TOGGLE_CART_HIDDEN,
-});
+type TypesWithoutPayload =
+  | TCartActionsMap['TOGGLE_CART_HIDDEN']
+  | TCartActionsMap['CLEAR_CART'];
 
-export const addItem = (item) => ({
-  type: CartActionTypes.ADD_ITEM,
-  payload: item,
-});
+type ActionWithoutPayload = () => {
+  type: TypesWithoutPayload;
+};
 
-export const removeItem = (item) => ({
-  type: CartActionTypes.REMOVE_ITEM,
-  payload: item,
-});
+type ActionWithPayload = <Payload>(payload: Payload) => {
+  type: Omit<TCartActionTypes, TypesWithoutPayload>;
+  payload: Payload;
+};
 
-export const clearItemFromCart = (item) => ({
-  type: CartActionTypes.CLEAR_ITEM_FROM_CART,
-  payload: item,
-});
+export const toggleCartHidden: ActionWithoutPayload = () =>
+  ({
+    type: CartActions.TOGGLE_CART_HIDDEN,
+  } as const);
 
-export const clearCart = () => ({
-  type: CartActionTypes.CLEAR_CART,
-});
+export const addItem = (item: CartItemType) =>
+  ({
+    type: CartActions.ADD_ITEM,
+    payload: item,
+  } as const);
 
-export const setCartFromFirebase = (cartItems) => ({
-  type: CartActionTypes.SET_CART_FROM_FIREBASE,
-  payload: cartItems,
-});
+export const removeItem = (item: CartItemType) =>
+  ({
+    type: CartActions.REMOVE_ITEM,
+    payload: item,
+  } as const);
 
-export const updateCartInFirebase = () => ({
-  type: CartActionTypes.UPDATE_CART_IN_FIREBASE,
-});
+export const clearItemFromCart = (item: CartItemType) =>
+  ({
+    type: CartActions.CLEAR_ITEM_FROM_CART,
+    payload: item,
+  } as const);
+
+export const clearCart = () =>
+  ({
+    type: CartActions.CLEAR_CART,
+  } as const);
+
+export const setCartFromFirebase = (cartItems: CartItemType[]) =>
+  ({
+    type: CartActions.SET_CART_FROM_FIREBASE,
+    payload: cartItems,
+  } as const);
+
+export const updateCartInFirebase = (payload: CartItemType[]) =>
+  ({
+    type: CartActions.UPDATE_CART_IN_FIREBASE,
+    payload,
+  } as const);

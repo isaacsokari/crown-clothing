@@ -17,7 +17,9 @@ import {
   WarningContainer,
 } from './checkout.styles';
 
-const CheckoutPage = ({ cartItems, total }) => (
+type TCheckoutPageProps = ReturnType<typeof mapStateToProps>;
+
+const CheckoutPage = ({ cartItems, total }: TCheckoutPageProps) => (
   <CheckoutPageContainer>
     <CheckoutHeaderContainer>
       <HeaderBlockContainer>

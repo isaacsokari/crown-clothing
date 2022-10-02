@@ -6,7 +6,7 @@ import userActionTypes from '../user/user.types';
 import { selectCurrentUser } from '../user/user.selectors';
 import { clearCart, setCartFromFirebase } from './cart.actions';
 import { selectCartItems } from './cart.selectors';
-import CartActionTypes from './cart.types';
+import CartActions from './cart.types';
 
 function* clearCartOnSignOut() {
   yield put(clearCart());
@@ -45,9 +45,9 @@ export function* onUserSignIn() {
 export function* onCartChange() {
   yield takeLatest(
     [
-      CartActionTypes.ADD_ITEM,
-      CartActionTypes.CLEAR_ITEM_FROM_CART,
-      CartActionTypes.REMOVE_ITEM,
+      CartActions.ADD_ITEM,
+      CartActions.CLEAR_ITEM_FROM_CART,
+      CartActions.REMOVE_ITEM,
     ],
     updateCartInFirebase
   );
