@@ -7,6 +7,7 @@ import { selectCurrentUser } from '../user/user.selectors';
 import { clearCart, setCartFromFirebase } from './cart.actions';
 import { selectCartItems } from './cart.selectors';
 import CartActions from './cart.types';
+import { TakeableChannel } from 'redux-saga';
 
 function* clearCartOnSignOut() {
   yield put(clearCart());
@@ -40,8 +41,12 @@ export function* onSignOutSuccess() {
 }
 
 export function* onUserSignIn() {
-  yield takeLatest(userActionTypes.SIGN_IN_SUCCESS, checkCartFromFirebase);
+  yield takeLatest(
+    userActionTypes.SIGN_IN_SUCCESS as unknown as TakeableChannel<unknown>,
+    checkCartFromFirebase
+  );
 }
+
 export function* onCartChange() {
   yield takeLatest(
     [

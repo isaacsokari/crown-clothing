@@ -1,3 +1,4 @@
+import { TakeableChannel } from 'redux-saga';
 import { takeLatest, put, all, call } from 'redux-saga/effects';
 import {
   auth,
@@ -15,7 +16,7 @@ import {
 } from './user.actions';
 import userActionTypes from './user.types';
 
-export function* getSnapshotFromUserAuth(userAuth, additionalData) {
+export function* getSnapshotFromUserAuth(userAuth, additionalData?) {
   try {
     const userRef = yield call(
       createUserProfileDocument,
@@ -86,7 +87,10 @@ export function* onGoogleSignInStart() {
 }
 
 export function* onEmailSignInStart() {
-  yield takeLatest(userActionTypes.EMAIL_SIGN_IN_START, signInWithEmail);
+  yield takeLatest(
+    userActionTypes.EMAIL_SIGN_IN_START as unknown as TakeableChannel<unknown>,
+    signInWithEmail
+  );
 }
 
 export function* onCheckUserSession() {
@@ -98,11 +102,17 @@ export function* onSignOutStart() {
 }
 
 export function* onSignUpStart() {
-  yield takeLatest(userActionTypes.SIGN_UP_START, signUp);
+  yield takeLatest(
+    userActionTypes.SIGN_UP_START as unknown as TakeableChannel<unknown>,
+    signUp
+  );
 }
 
 export function* onSignUpSuccess() {
-  yield takeLatest(userActionTypes.SIGN_UP_SUCCESS, signInAfterSignUp);
+  yield takeLatest(
+    userActionTypes.SIGN_UP_SUCCESS as unknown as TakeableChannel<unknown>,
+    signInAfterSignUp
+  );
 }
 
 export function* userSagas() {
