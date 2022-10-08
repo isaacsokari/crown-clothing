@@ -1,5 +1,5 @@
 import { CartItemType } from '../../components/collection-item/collection-item.component';
-import CartActions, { TCartActionsMap, TCartActionTypes } from './cart.types';
+import CartActions, { TCartActionsMap } from './cart.types';
 
 type TypesWithoutPayload =
   | TCartActionsMap['TOGGLE_CART_HIDDEN']
@@ -7,11 +7,6 @@ type TypesWithoutPayload =
 
 type ActionWithoutPayload = () => {
   type: TypesWithoutPayload;
-};
-
-type ActionWithPayload = <Payload>(payload: Payload) => {
-  type: Omit<TCartActionTypes, TypesWithoutPayload>;
-  payload: Payload;
 };
 
 export const toggleCartHidden: ActionWithoutPayload = () =>

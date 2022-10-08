@@ -1,5 +1,5 @@
 import { AnyAction } from 'redux';
-import userActionTypes, { TUserActionValues } from './user.types';
+import userActionTypes from './user.types';
 
 export type UserData = {
   createdAt: Date;
